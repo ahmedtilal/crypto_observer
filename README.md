@@ -1,6 +1,6 @@
 # crypto_observer
 
-An Flutter application that displays current crypto currencies prices from the Coin Market Cap API.
+A Flutter application that displays current crypto currencies prices from the Coin Market Cap API.
 
 API data was fetched from json using the Json_Serializable package.
 
