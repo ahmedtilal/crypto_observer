@@ -8,10 +8,12 @@ part of 'quote.dart';
 
 Quote _$QuoteFromJson(Map<String, dynamic> json) {
   return Quote(
-    gbp: Currency.fromJson(json['GBP'] as Map<String, dynamic>),
+    gbp: json['GBP'] == null
+        ? null
+        : Currency.fromJson(json['GBP'] as Map<String, dynamic>?),
   );
 }
 
 Map<String, dynamic> _$QuoteToJson(Quote instance) => <String, dynamic>{
-      'GBP': instance.gbp.toJson(),
+      'GBP': instance.gbp?.toJson(),
     };

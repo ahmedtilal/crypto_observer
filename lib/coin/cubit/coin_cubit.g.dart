@@ -20,8 +20,8 @@ Map<String, dynamic> _$CoinsCubitToJson(CoinsCubit instance) =>
 
 CoinsState _$CoinsStateFromJson(Map<String, dynamic> json) {
   return CoinsState(
-    status: _$enumDecode(_$CoinsStatusEnumMap, json['status']),
-    period: _$enumDecode(_$PercentagePeriodEnumMap, json['period']),
+    status: _$enumDecodeNullable(_$CoinsStatusEnumMap, json['status']),
+    period: _$enumDecodeNullable(_$PercentagePeriodEnumMap, json['period']),
     coins: (json['coins'] as List<dynamic>?)
         ?.map((e) => Coin.fromJson(e as Map<String, dynamic>))
         .toList(),
@@ -59,6 +59,17 @@ K _$enumDecode<K, V>(
       return MapEntry(unknownValue, enumValues.values.first);
     },
   ).key;
+}
+
+K? _$enumDecodeNullable<K, V>(
+  Map<K, V> enumValues,
+  dynamic source, {
+  K? unknownValue,
+}) {
+  if (source == null) {
+    return null;
+  }
+  return _$enumDecode<K, V>(enumValues, source, unknownValue: unknownValue);
 }
 
 const _$CoinsStatusEnumMap = {

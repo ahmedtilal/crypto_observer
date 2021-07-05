@@ -20,9 +20,9 @@ class CoinsState extends Equatable {
   factory CoinsState.fromJson(Map<String, dynamic> json) =>
       _$CoinsStateFromJson(json);
 
-  final CoinsStatus status;
-  final List<Coin> coins;
-  final PercentagePeriod period;
+  final CoinsStatus? status;
+  final List<Coin>? coins;
+  final PercentagePeriod? period;
 
   CoinsState copyWith({
     CoinsStatus? status,

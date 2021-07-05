@@ -33,44 +33,44 @@ class Coin extends Equatable {
 
   factory Coin.fromRepository(coins.Coin coin) {
     return Coin(
-        name: coin.name,
-        symbol: coin.symbol,
-        cmcRank: coin.cmcRank,
-        price: coin.quote.gbp.price,
-        percentage1h: coin.quote.gbp.percentageChange_1h,
-        percentage24h: coin.quote.gbp.percentageChange_24h,
-        percentage7d: coin.quote.gbp.percentageChange_7d,
-        percentage30d: coin.quote.gbp.percentageChange_30d,
-        percentage60d: coin.quote.gbp.percentageChange_60d,
-        percentage90d: coin.quote.gbp.percentageChange_90d,
+        name: coin.name!,
+        symbol: coin.symbol!,
+        cmcRank: coin.cmcRank!,
+        price: coin.quote!.gbp!.price!,
+        percentage1h: coin.quote!.gbp!.percentChange_1h!,
+        percentage24h: coin.quote!.gbp!.percentChange_24h!,
+        percentage7d: coin.quote!.gbp!.percentChange_7d!,
+        percentage30d: coin.quote!.gbp!.percentChange_30d!,
+        percentage60d: coin.quote!.gbp!.percentChange_60d!,
+        percentage90d: coin.quote!.gbp!.percentChange_90d!,
         percentageToShow: 'Empty');
   }
 
-  final String name;
-  final CoinSymbol symbol;
-  final int cmcRank;
-  final double price;
-  final double percentage1h;
-  final double percentage24h;
-  final double percentage7d;
-  final double percentage30d;
-  final double percentage60d;
-  final double percentage90d;
+  final String? name;
+  final CoinSymbol? symbol;
+  final int? cmcRank;
+  final double? price;
+  final double? percentage1h;
+  final double? percentage24h;
+  final double? percentage7d;
+  final double? percentage30d;
+  final double? percentage60d;
+  final double? percentage90d;
   @JsonKey(ignore: true)
   final String? percentageToShow;
 
   @override
   List<Object> get props => [
-        name,
-        symbol,
-        cmcRank,
-        price,
-        percentage1h,
-        percentage24h,
-        percentage7d,
-        percentage30d,
-        percentage60d,
-        percentage90d,
+        name!,
+        symbol!,
+        cmcRank!,
+        price!,
+        percentage1h!,
+        percentage24h!,
+        percentage7d!,
+        percentage30d!,
+        percentage60d!,
+        percentage90d!,
         percentageToShow!,
       ];
 
@@ -103,41 +103,42 @@ class Coin extends Equatable {
   }
 
   String toStringAsPercentage({double? decimal, String? period}) {
-    String percentage = (decimal! * 100).toStringAsFixed(2);
+    String percentage = decimal!.toStringAsFixed(2);
     return "$period change: $percentage%";
   }
 
-  Coin changePercentageToShow(Coin coin, PercentagePeriod period) {
-    switch (period) {
+  Coin changePercentageToShow(Coin? coin, PercentagePeriod? period) {
+    switch (period!) {
       case PercentagePeriod.period_1h:
+        print(coin!.percentage1h);
         return coin.copyWith(
-            percentageToShow:
-                toStringAsPercentage(decimal: coin.percentage1h, period: '1h'));
+            percentageToShow: toStringAsPercentage(
+                decimal: coin.percentage1h!, period: '1h'));
 
       case PercentagePeriod.period_24h:
-        return coin.copyWith(
-            percentageToShow:
-                toStringAsPercentage(decimal: percentage24h, period: '24h'));
+        return coin!.copyWith(
+            percentageToShow: toStringAsPercentage(
+                decimal: coin.percentage24h!, period: '24h'));
 
       case PercentagePeriod.period_7d:
-        return coin.copyWith(
-            percentageToShow:
-                toStringAsPercentage(decimal: percentage7d, period: '7d'));
+        return coin!.copyWith(
+            percentageToShow: toStringAsPercentage(
+                decimal: coin.percentage7d!, period: '7d'));
 
       case PercentagePeriod.period_30d:
-        return coin.copyWith(
-            percentageToShow:
-                toStringAsPercentage(decimal: percentage30d, period: '30d'));
+        return coin!.copyWith(
+            percentageToShow: toStringAsPercentage(
+                decimal: coin.percentage30d!, period: '30d'));
 
       case PercentagePeriod.period_60d:
-        return coin.copyWith(
-            percentageToShow:
-                toStringAsPercentage(decimal: percentage60d, period: '60d'));
+        return coin!.copyWith(
+            percentageToShow: toStringAsPercentage(
+                decimal: coin.percentage60d!, period: '60d'));
 
       case PercentagePeriod.period_90d:
-        return coin.copyWith(
-            percentageToShow:
-                toStringAsPercentage(decimal: percentage90d, period: '90d'));
+        return coin!.copyWith(
+            percentageToShow: toStringAsPercentage(
+                decimal: coin.percentage90d!, period: '90d'));
     }
   }
 }

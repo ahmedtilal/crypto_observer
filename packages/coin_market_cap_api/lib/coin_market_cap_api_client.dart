@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:http/http.dart' as http;
 import 'coin_market_cap_api.dart';
@@ -24,10 +25,10 @@ class CoinMarketApiClient {
       _$CoinMarketApiClientFromJson(json);
 
   Future<List<Coin>> getCoins() async {
-    List<Coin> coinsList = [];
-    final coinsRequest = Uri.https(_mainUrl,
-        'CMC_PRO_API_KEY=f6fb5f25-5b44-42f1-85e3-eb905ff030e8&start=1&limit=15&convert=GBP');
-    final coinsResponse = await _httpClient.get(coinsRequest);
+    List<Coin> _coinsList = [];
+    final coinsRequest = Uri.parse(
+        '${_mainUrl}CMC_PRO_API_KEY=f6fb5f25-5b44-42f1-85e3-eb905ff030e8&start=1&limit=15&convert=GBP');
+    final dynamic coinsResponse = await _httpClient.get(coinsRequest);
 
     if (coinsResponse.statusCode != 200) {
       throw CoinsDataFetchingError();
@@ -40,17 +41,15 @@ class CoinMarketApiClient {
       throw CoinsReturnedEmptyFailure();
     }
 
-    final coinsJson = jsonBody['data'] as List<Map<String, dynamic>>;
-
+    final coinsJson = jsonBody['data'];
     if (coinsJson.isEmpty) {
       throw CoinsReturnedEmptyFailure();
     }
-    //TODO: Remember to delete below line later.
-    print(coinsJson);
+
     for (Map<String, dynamic> coin in coinsJson) {
-      coinsList.add(Coin.fromJson(coin));
+      _coinsList.add(Coin.fromJson(coin));
     }
-    return coinsList;
+    return _coinsList;
   }
 
   Map<String, dynamic> toJson() => _$CoinMarketApiClientToJson(this);

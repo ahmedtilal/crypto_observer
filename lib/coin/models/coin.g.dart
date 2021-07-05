@@ -8,16 +8,16 @@ part of 'coin.dart';
 
 Coin _$CoinFromJson(Map<String, dynamic> json) {
   return Coin(
-    name: json['name'] as String,
-    symbol: _$enumDecode(_$CoinSymbolEnumMap, json['symbol']),
-    cmcRank: json['cmcRank'] as int,
-    price: (json['price'] as num).toDouble(),
-    percentage1h: (json['percentage1h'] as num).toDouble(),
-    percentage24h: (json['percentage24h'] as num).toDouble(),
-    percentage30d: (json['percentage30d'] as num).toDouble(),
-    percentage60d: (json['percentage60d'] as num).toDouble(),
-    percentage7d: (json['percentage7d'] as num).toDouble(),
-    percentage90d: (json['percentage90d'] as num).toDouble(),
+    name: json['name'] as String?,
+    symbol: _$enumDecodeNullable(_$CoinSymbolEnumMap, json['symbol']),
+    cmcRank: json['cmcRank'] as int?,
+    price: (json['price'] as num?)?.toDouble(),
+    percentage1h: (json['percentage1h'] as num?)?.toDouble(),
+    percentage24h: (json['percentage24h'] as num?)?.toDouble(),
+    percentage30d: (json['percentage30d'] as num?)?.toDouble(),
+    percentage60d: (json['percentage60d'] as num?)?.toDouble(),
+    percentage7d: (json['percentage7d'] as num?)?.toDouble(),
+    percentage90d: (json['percentage90d'] as num?)?.toDouble(),
   );
 }
 
@@ -58,6 +58,17 @@ K _$enumDecode<K, V>(
       return MapEntry(unknownValue, enumValues.values.first);
     },
   ).key;
+}
+
+K? _$enumDecodeNullable<K, V>(
+  Map<K, V> enumValues,
+  dynamic source, {
+  K? unknownValue,
+}) {
+  if (source == null) {
+    return null;
+  }
+  return _$enumDecode<K, V>(enumValues, source, unknownValue: unknownValue);
 }
 
 const _$CoinSymbolEnumMap = {

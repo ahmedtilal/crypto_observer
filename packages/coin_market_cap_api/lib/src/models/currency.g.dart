@@ -8,22 +8,22 @@ part of 'currency.dart';
 
 Currency _$CurrencyFromJson(Map<String, dynamic> json) {
   return Currency(
-    price: (json['price'] as num).toDouble(),
-    percentageChange_1h: (json['percentage_change_1h'] as num).toDouble(),
-    percentageChange_24h: (json['percentage_change_24h'] as num).toDouble(),
-    percentageChange_30d: (json['percentage_change_30d'] as num).toDouble(),
-    percentageChange_60d: (json['percentage_change_60d'] as num).toDouble(),
-    percentageChange_7d: (json['percentage_change_7d'] as num).toDouble(),
-    percentageChange_90d: (json['percentage_change_90d'] as num).toDouble(),
+    price: (json['price'] as num?)?.toDouble(),
+    percentChange_1h: (json['percent_change_1h'] as num?)?.toDouble(),
+    percentChange_24h: (json['percent_change_24h'] as num?)?.toDouble(),
+    percentChange_30d: (json['percent_change_30d'] as num?)?.toDouble(),
+    percentChange_60d: (json['percent_change_60d'] as num?)?.toDouble(),
+    percentChange_7d: (json['percent_change_7d'] as num?)?.toDouble(),
+    percentChange_90d: (json['percent_change_90d'] as num?)?.toDouble(),
   );
 }
 
 Map<String, dynamic> _$CurrencyToJson(Currency instance) => <String, dynamic>{
       'price': instance.price,
-      'percentage_change_1h': instance.percentageChange_1h,
-      'percentage_change_24h': instance.percentageChange_24h,
-      'percentage_change_7d': instance.percentageChange_7d,
-      'percentage_change_30d': instance.percentageChange_30d,
-      'percentage_change_60d': instance.percentageChange_60d,
-      'percentage_change_90d': instance.percentageChange_90d,
+      'percent_change_1h': instance.percentChange_1h,
+      'percent_change_24h': instance.percentChange_24h,
+      'percent_change_7d': instance.percentChange_7d,
+      'percent_change_30d': instance.percentChange_30d,
+      'percent_change_60d': instance.percentChange_60d,
+      'percent_change_90d': instance.percentChange_90d,
     };

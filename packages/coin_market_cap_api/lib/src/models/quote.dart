@@ -7,8 +7,8 @@ class Quote {
   Quote({required this.gbp});
 
   @JsonKey(name: 'GBP')
-  final Currency gbp;
+  final Currency? gbp;
 
-  factory Quote.fromJson(Map<String, dynamic> json) => _$QuoteFromJson(json);
+  factory Quote.fromJson(Map<String, dynamic>? json) => _$QuoteFromJson(json!);
   Map<String, dynamic> toJson() => _$QuoteToJson(this);
 }

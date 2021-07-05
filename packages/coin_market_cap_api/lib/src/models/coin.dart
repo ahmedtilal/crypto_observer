@@ -54,10 +54,10 @@ class Coin {
       required this.cmcRank,
       required this.quote});
 
-  final String name;
-  final CoinSymbol symbol;
-  final int cmcRank;
-  final Quote quote;
+  final String? name;
+  final CoinSymbol? symbol;
+  final int? cmcRank;
+  final Quote? quote;
 
-  factory Coin.fromJson(Map<String, dynamic> json) => _$CoinFromJson(json);
+  factory Coin.fromJson(Map<String, dynamic>? json) => _$CoinFromJson(json!);
 }

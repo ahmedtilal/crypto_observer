@@ -8,10 +8,12 @@ part of 'coin.dart';
 
 Coin _$CoinFromJson(Map<String, dynamic> json) {
   return Coin(
-    name: json['name'] as String,
-    symbol: _$enumDecode(_$CoinSymbolEnumMap, json['symbol']),
-    cmcRank: json['cmc_rank'] as int,
-    quote: Quote.fromJson(json['quote'] as Map<String, dynamic>),
+    name: json['name'] as String?,
+    symbol: _$enumDecodeNullable(_$CoinSymbolEnumMap, json['symbol']),
+    cmcRank: json['cmc_rank'] as int?,
+    quote: json['quote'] == null
+        ? null
+        : Quote.fromJson(json['quote'] as Map<String, dynamic>?),
   );
 }
 
@@ -19,7 +21,7 @@ Map<String, dynamic> _$CoinToJson(Coin instance) => <String, dynamic>{
       'name': instance.name,
       'symbol': _$CoinSymbolEnumMap[instance.symbol],
       'cmc_rank': instance.cmcRank,
-      'quote': instance.quote.toJson(),
+      'quote': instance.quote?.toJson(),
     };
 
 K _$enumDecode<K, V>(
@@ -46,6 +48,17 @@ K _$enumDecode<K, V>(
       return MapEntry(unknownValue, enumValues.values.first);
     },
   ).key;
+}
+
+K? _$enumDecodeNullable<K, V>(
+  Map<K, V> enumValues,
+  dynamic source, {
+  K? unknownValue,
+}) {
+  if (source == null) {
+    return null;
+  }
+  return _$enumDecode<K, V>(enumValues, source, unknownValue: unknownValue);
 }
 
 const _$CoinSymbolEnumMap = {
