@@ -17,7 +17,7 @@ class CoinsCubit extends HydratedCubit<CoinsState> {
     emit(state.copyWith(status: CoinsStatus.loading));
     try {
       final coinsReturned = await coinsRepository.getCoins();
-      final coins = filterCoins(coinsReturned);
+      final coins = filterCoins(coinsReturned, PercentagePeriod.period_24h);
       emit(state.copyWith(
           status: CoinsStatus.success, coins: coins, period: state.period));
     } on Exception {
@@ -29,9 +29,10 @@ class CoinsCubit extends HydratedCubit<CoinsState> {
     if (!state.status!.isSuccessful) return;
     if (state.coins == List.empty()) return;
     try {
-      final coins = filterCoins(await coinsRepository.getCoins());
+      final coins =
+          filterCoins(await coinsRepository.getCoins(), state.period!);
       emit(state.copyWith(
-          status: CoinsStatus.success, coins: coins, period: state.period));
+          status: CoinsStatus.success, coins: coins, period: state.period!));
     } on Exception {
       emit(state);
     }
@@ -46,12 +47,12 @@ class CoinsCubit extends HydratedCubit<CoinsState> {
     );
   }
 
-  List<Coin> filterCoins(List? coins) {
+  List<Coin> filterCoins(List? coins, PercentagePeriod? period) {
     List<Coin> _coinsList = [];
     for (int i = 0; i < coins!.length; i++) {
       _coinsList.add(Coin.fromRepository(coins[i]));
     }
-    return _coinsList.ammendCoins(_coinsList, PercentagePeriod.period_24h);
+    return _coinsList.ammendCoins(_coinsList, period!);
   }
 
   @override

@@ -6,8 +6,8 @@ class CoinsFetched extends StatelessWidget {
   const CoinsFetched({Key? key, required this.onRefresh, required this.coins})
       : super(key: key);
 
-  final List<Coin> coins;
-  final ValueGetter<Future<void>> onRefresh;
+  final List<Coin>? coins;
+  final ValueGetter<Future<void>>? onRefresh;
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -20,15 +20,15 @@ class CoinsFetched extends StatelessWidget {
           color: Colors.grey[400],
         ),
         RefreshIndicator(
-          onRefresh: onRefresh,
+          onRefresh: onRefresh!,
           child: ListView.builder(
-            itemCount: coins.length,
+            itemCount: coins!.length,
             itemBuilder: (BuildContext context, int index) {
               return CoinCard(
-                  coin: coins[index].symbol.toString().split('.').last,
-                  name: coins[index].name,
-                  price: coins[index].price,
-                  percentageToShow: coins[index].percentageToShow);
+                  coin: coins![index].symbol.toString().split('.').last,
+                  name: coins![index].name,
+                  price: coins![index].price,
+                  percentageToShow: coins![index].percentageToShow);
             },
           ),
         ),
