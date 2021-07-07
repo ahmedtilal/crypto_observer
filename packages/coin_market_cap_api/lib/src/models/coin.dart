@@ -47,10 +47,6 @@ enum CoinSymbol {
   unknown,
 }
 
-extension CoinSymbolX on CoinSymbol {
-  String? get symbol => _$CoinSymbolEnumMap[this];
-}
-
 @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
 class Coin {
   Coin(
