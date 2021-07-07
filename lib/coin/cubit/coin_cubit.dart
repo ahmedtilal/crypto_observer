@@ -17,7 +17,8 @@ class CoinsCubit extends HydratedCubit<CoinsState> {
     emit(state.copyWith(status: CoinsStatus.loading));
     try {
       final coinsReturned = await coinsRepository.getCoins();
-      final coins = filterCoins(coinsReturned, PercentagePeriod.period_24h);
+      final coins = filterCoins(
+          coinsReturned, state.period ?? PercentagePeriod.period_24h);
       emit(state.copyWith(
           status: CoinsStatus.success, coins: coins, period: state.period));
     } on Exception {
