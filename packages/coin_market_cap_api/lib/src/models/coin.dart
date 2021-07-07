@@ -44,6 +44,11 @@ enum CoinSymbol {
   THETA,
   @JsonValue('ICP')
   ICP,
+  unknown,
+}
+
+extension CoinSymbolX on CoinSymbol {
+  String? get symbol => _$CoinSymbolEnumMap[this];
 }
 
 @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
@@ -55,9 +60,12 @@ class Coin {
       required this.quote});
 
   final String? name;
+  @JsonKey(unknownEnumValue: CoinSymbol.unknown)
   final CoinSymbol? symbol;
   final int? cmcRank;
   final Quote? quote;
 
   factory Coin.fromJson(Map<String, dynamic>? json) => _$CoinFromJson(json!);
+
+  Map<String, dynamic> toJson() => _$CoinToJson(this);
 }

@@ -9,7 +9,8 @@ part of 'coin.dart';
 Coin _$CoinFromJson(Map<String, dynamic> json) {
   return Coin(
     name: json['name'] as String?,
-    symbol: _$enumDecodeNullable(_$CoinSymbolEnumMap, json['symbol']),
+    symbol: _$enumDecodeNullable(_$CoinSymbolEnumMap, json['symbol'],
+        unknownValue: CoinSymbol.unknown),
     cmcRank: json['cmc_rank'] as int?,
     quote: json['quote'] == null
         ? null
@@ -82,4 +83,5 @@ const _$CoinSymbolEnumMap = {
   CoinSymbol.WBTC: 'WBTC',
   CoinSymbol.THETA: 'THETA',
   CoinSymbol.ICP: 'ICP',
+  CoinSymbol.unknown: 'unknown',
 };
