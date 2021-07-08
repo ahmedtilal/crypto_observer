@@ -58,6 +58,7 @@ class CoinsCubit extends HydratedCubit<CoinsState> {
 
   @override
   CoinsState fromJson(Map<String, dynamic> json) => CoinsState.fromJson(json);
+
   @override
   Map<String, dynamic> toJson(CoinsState state) => state.toJson();
 }

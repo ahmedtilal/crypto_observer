@@ -36,10 +36,3 @@ class CoinsFetched extends StatelessWidget {
     );
   }
 }
-
-// CoinCard(
-//                 name: coins[0].name,
-//                 coin: coins[0].symbol.toString().split('.').last,
-//                 price: coins[0].price,
-//                 percentageToShow: coins[0].percentageToShow,
-//               ),
